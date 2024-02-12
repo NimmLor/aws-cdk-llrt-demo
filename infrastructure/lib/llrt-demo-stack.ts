@@ -14,5 +14,8 @@ export class LlrtDemoStack extends Stack {
 
     const helloWorldLoggerLambda = LlrtFunction(this, 'hello-world-logger')
     addFunctionUrl(this, 'hello-world-logger', helloWorldLoggerLambda)
+
+    const helloWorldTracerLambda = LlrtFunction(this, 'hello-world-tracer')
+    addFunctionUrl(this, 'hello-world-tracer', helloWorldTracerLambda)
   }
 }
