@@ -1,0 +1,13 @@
+{
+  "app": "tsx bin/cdk.ts",
+  "assetMetadata": false,
+  "context": {
+    "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
+    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
+    "@aws-cdk/aws-lambda:recognizeVersionProps": true,
+    "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
+    "@aws-cdk/core:stackRelativeExports": true
+  },
+  "outputsFile": "cdk.out/outputs.json",
+  "requireApproval": "never"
+}
