@@ -72,7 +72,7 @@ void Promise.all(
   entryPoints.map(async (entryPoint) => {
     const outdir = path.join(entryPoint.path.replace(__dirname, 'dist'))
 
-    const outfile = path.join(outdir, 'index.js')
+    const outfile = path.join(outdir, 'index.mjs')
 
     // see https://github.com/awslabs/llrt?tab=readme-ov-file#esbuild
     const result = await esbuild.build({

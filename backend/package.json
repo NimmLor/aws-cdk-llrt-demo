@@ -12,7 +12,10 @@
     "@aws-lambda-powertools/logger": "^1.18.0",
     "@aws-lambda-powertools/metrics": "^1.18.0",
     "@aws-lambda-powertools/parameters": "^1.18.0",
-    "@aws-lambda-powertools/tracer": "^1.18.0"
+    "@aws-lambda-powertools/tracer": "^1.18.0",
+    "@aws-sdk/client-dynamodb": "^3.514.0",
+    "@aws-sdk/lib-dynamodb": "^3.513.0",
+    "dynamodb-toolbox": "^0.9.2"
   },
   "devDependencies": {
     "@types/adm-zip": "^0",

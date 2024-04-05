@@ -8,7 +8,9 @@ import * as path from 'node:path'
 type LlrtFunctionProps = Omit<
   aws_lambda.FunctionProps,
   'code' | 'handler' | 'runtime'
-> & {}
+> & {
+  useNodejs?: boolean
+}
 
 /**
  * Factory function to create a Lambda function with LLRT runtime
@@ -34,20 +36,14 @@ export const LlrtFunction = (
     __dirname,
     '../../../backend',
     'dist/src',
-    `${serviceName}.fn`
+    `${serviceName}.fn`.trim()
   )
-
-  const logGroup = new aws_logs.LogGroup(scope, `${serviceName}-log-group`, {
-    logGroupName: `/llrt-demo/${serviceName}`,
-    removalPolicy: RemovalPolicy.RETAIN_ON_UPDATE_OR_DELETE,
-  })
 
   const functionProps: aws_lambda.FunctionProps = {
     architecture: aws_lambda.Architecture.ARM_64,
     description: serviceName,
     functionName: `llrt-demo-${serviceName}`,
     handler: 'index.handler',
-    logGroup,
     memorySize: 1_769,
     timeout: Duration.seconds(30),
     tracing: aws_lambda.Tracing.ACTIVE,
@@ -55,12 +51,16 @@ export const LlrtFunction = (
     systemLogLevel: aws_lambda.SystemLogLevel.INFO,
     logFormat: aws_lambda.LogFormat.JSON,
     ...props,
-    code: aws_lambda.Code.fromAsset(codePath),
+    code: aws_lambda.Code.fromAsset(codePath, {
+      exclude: props?.useNodejs ? ['bootstrap'] : [],
+    }),
     environment: {
       ...props?.environment,
       POWERTOOLS_SERVICE_NAME: serviceName,
     },
-    runtime: aws_lambda.Runtime.PROVIDED_AL2023,
+    runtime: props?.useNodejs
+      ? aws_lambda.Runtime.NODEJS_20_X
+      : aws_lambda.Runtime.PROVIDED_AL2023,
   }
 
   return new aws_lambda.Function(scope, serviceName, functionProps)

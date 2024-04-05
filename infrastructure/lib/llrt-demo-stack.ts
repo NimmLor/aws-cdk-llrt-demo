@@ -1,4 +1,9 @@
-import { Stack, type StackProps } from 'aws-cdk-lib'
+import {
+  RemovalPolicy,
+  Stack,
+  aws_dynamodb,
+  type StackProps,
+} from 'aws-cdk-lib'
 import { type Construct } from 'constructs'
 import { LlrtFunction } from './factories/llrt-function'
 import { addFunctionUrl } from './utils/add-function-url'
@@ -9,6 +14,13 @@ export class LlrtDemoStack extends Stack {
   public constructor(scope: Construct, id: string, props: Props) {
     super(scope, id, props)
 
+    const demoTable = new aws_dynamodb.Table(this, 'demo-table', {
+      partitionKey: { name: 'PK', type: aws_dynamodb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: aws_dynamodb.AttributeType.STRING },
+      billingMode: aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
+
     const helloWorldLambda = LlrtFunction(this, 'hello-world')
     addFunctionUrl(this, 'hello-world', helloWorldLambda)
 
@@ -17,5 +29,29 @@ export class LlrtDemoStack extends Stack {
 
     const helloWorldTracerLambda = LlrtFunction(this, 'hello-world-tracer')
     addFunctionUrl(this, 'hello-world-tracer', helloWorldTracerLambda)
+
+    const dynamodbToolboxTestLambda = LlrtFunction(this, 'dynamodb-toolbox')
+    addFunctionUrl(this, 'dynamodb-toolbox', dynamodbToolboxTestLambda)
+    dynamodbToolboxTestLambda.addEnvironment('TABLE_NAME', demoTable.tableName)
+    demoTable.grantReadWriteData(dynamodbToolboxTestLambda)
+
+    const dynamodbToolboxTestLambdaNodejs = LlrtFunction(
+      this,
+      ' dynamodb-toolbox',
+      {
+        useNodejs: true,
+        functionName: `nodejs-demo-dynamodb-toolbox`,
+      }
+    )
+    addFunctionUrl(
+      this,
+      'dynamodb-toolbox-nodejs',
+      dynamodbToolboxTestLambdaNodejs
+    )
+    dynamodbToolboxTestLambdaNodejs.addEnvironment(
+      'TABLE_NAME',
+      demoTable.tableName
+    )
+    demoTable.grantReadWriteData(dynamodbToolboxTestLambdaNodejs)
   }
 }
