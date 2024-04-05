@@ -8,6 +8,7 @@ import { type Construct } from 'constructs'
 import { LlrtFunction } from './factories/llrt-function'
 import { addFunctionUrl } from './utils/add-function-url'
 import { Buttonize } from 'buttonize/cdk'
+import { createButtonizeAdminApp } from './buttonize-app'
 
 type Props = StackProps & {}
 
@@ -62,5 +63,7 @@ export class LlrtDemoStack extends Stack {
       demoTable.tableName
     )
     demoTable.grantReadWriteData(dynamodbToolboxTestLambdaNodejs)
+
+    createButtonizeAdminApp(this)
   }
 }
