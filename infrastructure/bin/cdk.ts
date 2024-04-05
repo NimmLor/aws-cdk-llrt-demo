@@ -9,7 +9,7 @@ const env = {
   region,
 } satisfies Environment
 
-const app = new App()
+export const app = new App()
 
 new LlrtDemoStack(app, 'LlrtDemoStack', {
   env,

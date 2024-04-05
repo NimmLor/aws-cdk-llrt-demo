@@ -7,12 +7,21 @@ import {
 import { type Construct } from 'constructs'
 import { LlrtFunction } from './factories/llrt-function'
 import { addFunctionUrl } from './utils/add-function-url'
+import { Buttonize } from 'buttonize/cdk'
 
 type Props = StackProps & {}
 
 export class LlrtDemoStack extends Stack {
   public constructor(scope: Construct, id: string, props: Props) {
     super(scope, id, props)
+
+    /* BUTTONIZE */
+
+    Buttonize.init(this, {
+      apiKey: process.env.BUTTONIZE_API_KEY as string,
+    })
+
+    /* BUTTONIZE END */
 
     const demoTable = new aws_dynamodb.Table(this, 'demo-table', {
       partitionKey: { name: 'PK', type: aws_dynamodb.AttributeType.STRING },
