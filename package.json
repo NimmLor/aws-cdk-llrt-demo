@@ -7,11 +7,13 @@
   "scripts": {
     "build": "yarn workspace backend run build && yarn workspace infrastructure run build",
     "codegen": "yarn workspaces foreach -A run codegen",
-    "deploy": "yarn run build && yarn workspace infrastructure run deploy"
+    "deploy": "yarn run build && yarn workspace infrastructure run deploy",
+    "dev": "yarn workspaces foreach -A run dev"
   },
   "devDependencies": {
     "@atws/prettier-config": "^3.0.0",
     "@tsconfig/node20": "^20.1.2",
+    "esbuild": "^0.20.2",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },

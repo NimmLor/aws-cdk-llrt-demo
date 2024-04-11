@@ -2,17 +2,23 @@
   "name": "infrastructure",
   "version": "0.1.0",
   "license": "none",
+  "type": "module",
   "bin": "bin/cdk.js",
   "scripts": {
     "build": "cdk synth --all -q",
-    "deploy": "cdk deploy --app './cdk.out' --all"
+    "deploy": "cdk deploy --app './cdk.out' --all",
+    "dev": "buttonize dev ./bin/cdk.ts --verbose"
   },
   "dependencies": {
+    "@types/node": "^20.12.4",
     "aws-cdk-lib": "^2.127.0",
     "constructs": "^10.3.0"
   },
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
     "aws-cdk": "^2.127.0",
+    "buttonize": "^1.4.0",
+    "esbuild": "^0.20.2",
     "tsx": "^4.7.1",
     "typescript": "5.3.3"
   },

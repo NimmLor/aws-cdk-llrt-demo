@@ -32,7 +32,7 @@ const llrtExternal = [
   'uuid',
 ]
 
-const distDir = path.join(__dirname, 'dist')
+const distDir = path.join(import.meta.dirname, 'dist')
 
 // remove dist dir and recreate it and a subfolder for metafiles
 fs.rmSync(distDir, { force: true, recursive: true })
@@ -42,8 +42,8 @@ fs.mkdirSync(path.join(distDir, 'meta'), { recursive: true })
 const entryPoints: Array<{ name: string; path: string }> = []
 
 // list folders in folder
-const folderPath = path.join(__dirname, 'src')
-const folderContents = fs.readdirSync(path.join(__dirname, 'src'))
+const folderPath = path.join(import.meta.dirname, 'src')
+const folderContents = fs.readdirSync(path.join(import.meta.dirname, 'src'))
 for (const item of folderContents) {
   if (item.includes('dist')) continue
 
@@ -57,7 +57,7 @@ for (const item of folderContents) {
 
 // build all entrypoints
 
-const runtimeFolder = path.join(__dirname, 'runtime')
+const runtimeFolder = path.join(import.meta.dirname, 'runtime')
 const runtimeName = fs.readdirSync(runtimeFolder).at(-1)
 
 if (!runtimeName) {
@@ -70,7 +70,7 @@ const runtimePath = path.join(runtimeFolder, runtimeName)
 
 void Promise.all(
   entryPoints.map(async (entryPoint) => {
-    const outdir = path.join(entryPoint.path.replace(__dirname, 'dist'))
+    const outdir = path.join(entryPoint.path.replace(import.meta.dirname, 'dist'))
 
     const outfile = path.join(outdir, 'index.mjs')
 
