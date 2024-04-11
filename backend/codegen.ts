@@ -8,7 +8,7 @@ const owner = 'awslabs'
 const repo = 'llrt'
 const assetName = 'llrt-lambda-arm64.zip'
 
-const downloadPath = path.join(__dirname, 'runtime')
+const downloadPath = path.join(import.meta.dirname, 'runtime')
 
 // delete all files in downloadPath
 const cleanupDownloadPath = () => {
