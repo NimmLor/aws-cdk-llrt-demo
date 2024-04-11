@@ -1,7 +1,5 @@
 {
-  "compilerOptions": {
-    "module": "NodeNext",
-  },
+  "compilerOptions": {},
   "extends": "@tsconfig/node20/tsconfig.json",
   "include": ["lib/**/*", "bin/**/*", "codegen.ts"],
 }
