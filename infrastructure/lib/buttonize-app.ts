@@ -34,7 +34,7 @@ export const createButtonizeAdminApp = (scope: Construct) => {
     })
     .page('DonePage', {
       body: [
-        Display.heading('Last Updated: ' + new Date().toLocaleString()),
+        Display.heading('Hi, Last Updated: ' + new Date().toLocaleString()),
         Display.heading('Discount generated'),
         Display.text('Discount value: {{discount.value}}'),
         Display.text('Discount code: {{discountGenerator.code}}'),

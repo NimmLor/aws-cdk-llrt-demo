@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "moduleResolution": "Bundler",
-    "module": "ES2022",
+    "module": "NodeNext",
   },
   "extends": "@tsconfig/node20/tsconfig.json",
   "include": ["lib/**/*", "bin/**/*", "codegen.ts"],

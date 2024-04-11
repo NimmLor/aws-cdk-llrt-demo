@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable node/no-sync */
-import { aws_lambda, aws_logs, Duration, RemovalPolicy } from 'aws-cdk-lib'
+import { aws_lambda, Duration } from 'aws-cdk-lib'
 import { type Construct } from 'constructs'
-import * as fs from 'node:fs'
 import * as path from 'node:path'
 
 type LlrtFunctionProps = Omit<
@@ -33,7 +32,7 @@ export const LlrtFunction = (
   const serviceName = functionName.replace('.fn', '')
 
   const codePath = path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../backend',
     'dist/src',
     `${serviceName}.fn`.trim()
