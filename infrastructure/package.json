@@ -17,6 +17,7 @@
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
     "aws-cdk": "^2.127.0",
+    "backend": "workspace:*",
     "buttonize": "^1.4.0",
     "esbuild": "^0.20.2",
     "tsx": "^4.7.1",
